@@ -59,9 +59,35 @@ def meta_extract(extracted_pdf):
         else:
             print("There was no code in this exam.")
 
-    elif metadata["paper_type"] == "MS":
-        print("This is temporary")
-        # MS extraction logic goes here     
+    if metadata["paper_type"] == "MS":
+        # MS extraction logic
+
+        new_code_paperv_pattern =r"(\d{4})/(\d{2}) (.+?) –"
+        new_code_paperv = re.search(new_code_paperv_pattern,extracted_pdf)
+        
+        if not new_code_paperv:
+            old_code_paperv_pattern = r"(.+?) – (October/November|May/June|February/March) (\d{4})\s+(\d{4})\s+(\d{2})"
+            old_code_paperv = re.search(old_code_paperv_pattern,extracted_pdf)
+        
+            if old_code_paperv:
+                metadata["qualification"] = old_code_paperv.group(1).strip()
+
+                metadata["session"] = old_code_paperv.group(2)
+                metadata["year"] = old_code_paperv.group(3)
+                metadata["subject_code"] = old_code_paperv.group(4)
+                old_pv = old_code_paperv.group(5)
+                metadata["paper"] = old_pv[0]
+                metadata["variant"] = old_pv[1]
+        
+        else:
+            metadata["qualification"] = new_code_paperv.group(3)
+            metadata["subject_code"] = new_code_paperv.group(1)
+
+            pv = new_code_paperv.group(2)
+            metadata["paper"] = pv[0]
+            metadata["variant"] = pv[1]
+
+
 
     return metadata
 
