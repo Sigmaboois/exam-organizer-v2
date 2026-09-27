@@ -15,6 +15,7 @@ def read_file(pdf_path):
     pdf_text = pdf_text.replace(".","")
     pdf_text = re.sub(r"[. ]{3,}","",pdf_text)
     pdf_text_cleaned = pdf_text
+    
     return pdf_text_cleaned 
 
 if __name__ == "__main__":
