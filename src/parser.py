@@ -62,31 +62,42 @@ def meta_extract(extracted_pdf):
     if metadata["paper_type"] == "MS":
         # MS extraction logic
 
-        new_code_paperv_pattern =r"(\d{4})/(\d{2}) (.+?) –"
+        new_code_paperv_pattern =r"(\d{4})/(\d{2}) (.+?) – Mark Scheme"
         new_code_paperv = re.search(new_code_paperv_pattern,extracted_pdf)
         
         if not new_code_paperv:
-            old_code_paperv_pattern = r"(.+?) – (October/November|May/June|February/March) (\d{4})\s+(\d{4})\s+(\d{2})"
+            old_code_paperv_pattern = r"(.+?) – (October/November|May/June|February/March|March|June) (\d{4})\s+(\d{4})\s+(\d{2})"
             old_code_paperv = re.search(old_code_paperv_pattern,extracted_pdf)
         
             if old_code_paperv:
                 metadata["qualification"] = old_code_paperv.group(1).strip()
 
-                metadata["session"] = old_code_paperv.group(2)
-                metadata["year"] = old_code_paperv.group(3)
-                metadata["subject_code"] = old_code_paperv.group(4)
+                metadata["session"] = old_code_paperv.group(2).strip()
+                metadata["year"] = old_code_paperv.group(3).strip()
+                metadata["subject_code"] = old_code_paperv.group(4).strip()
                 old_pv = old_code_paperv.group(5)
                 metadata["paper"] = old_pv[0]
                 metadata["variant"] = old_pv[1]
         
         else:
-            metadata["qualification"] = new_code_paperv.group(3)
-            metadata["subject_code"] = new_code_paperv.group(1)
+            metadata["qualification"] = new_code_paperv.group(3).strip()
+            metadata["subject_code"] = new_code_paperv.group(1).strip()
 
             pv = new_code_paperv.group(2)
             metadata["paper"] = pv[0]
             metadata["variant"] = pv[1]
 
+            new_year_session_pattern = r"mark schemes for the\s+(May/June|October/November|February/March|March|June)\s+(\d{4})"
+            new_year_session = re.search(new_year_session_pattern,extracted_pdf)
+            if new_year_session:
+                session = new_year_session.group(1)
+                if session == "June":
+                    metadata["session"] = "May/June"
+                elif session == "March":
+                    metadata["session"] = "February/March"
+                else:
+                    metadata["session"] = session
+                metadata["year"] = new_year_session.group(2).strip()
 
 
     return metadata
