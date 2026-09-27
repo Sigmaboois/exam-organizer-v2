@@ -1,7 +1,7 @@
 <!-- ============================== HEADER ============================== -->
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:6a11cb,50:2575fc,100:00c6ff&height=200&section=header&text=Exam%20Organizer&fontSize=60&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Your%20IGCSE%20%26%20A-Level%20exam%20season%2C%20sorted.&descAlignY=58&descSize=18" alt="Exam Organizer banner" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:6a11cb,50:2575fc,100:00c6ff&height=200&section=header&text=Exam%20Organizer&fontSize=60&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Your%20IGCSE%20and%20A-Level%20exam%20season%2C%20sorted.&descAlignY=58&descSize=18" alt="Exam Organizer banner" width="100%"/>
 
 <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=2575FC&center=true&vCenter=true&width=600&lines=%F0%9F%93%85+Track+every+paper%2C+every+date;%E2%8F%B3+Live+countdowns+to+each+exam;%E2%9A%A0%EF%B8%8F+Spot+timetable+clashes+instantly;%F0%9F%93%9A+Plan+revision+like+a+pro" alt="Typing SVG" /></a>
 
