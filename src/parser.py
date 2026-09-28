@@ -83,9 +83,18 @@ def meta_extract(extracted_pdf):
         if not new_code_paperv:
             old_code_paperv_pattern = r"(.+?) – (October/November|May/June|February/March|March|June) (\d{4})\s+(\d{4})\s+(\d{2})"
             old_code_paperv = re.search(old_code_paperv_pattern,extracted_pdf)
-        
+
+            
             if old_code_paperv:
-                metadata["qualification"] = old_code_paperv.group(1).strip()
+                qual_in_old = old_code_paperv.group(1).strip().lower()
+                if "igcse" in qual_in_old:
+                    metadata["qualification"] = "IGCSE"
+                elif "o level" in qual_in_old:
+                    metadata["qualification"] = "O Level"
+                elif "as level" in qual_in_old:
+                    metadata["qualification"] = "AS"
+                elif "a level" in qual_in_old:
+                    metadata["qualification"] = "AS & A Level"
 
                 metadata["session"] = old_code_paperv.group(2).strip()
                 metadata["year"] = old_code_paperv.group(3).strip()
@@ -95,7 +104,18 @@ def meta_extract(extracted_pdf):
                 metadata["variant"] = old_pv[1]
         
         else:
-            metadata["qualification"] = new_code_paperv.group(3).strip()
+
+            qual_in_new = new_code_paperv.group(3).strip().lower()
+            if "igcse" in  qual_in_new:
+                metadata["qualification"] = "IGCSE"
+            elif "o level" in qual_in_new:
+                metadata["qualification"] = "O Level"
+            elif "as level" in qual_in_new:
+                metadata["qualification"] = "AS"
+            elif "a level" in qual_in_new:
+                metadata["qualification"] = "AS & A Level"
+
+            
             metadata["subject_code"] = new_code_paperv.group(1).strip()
 
             pv = new_code_paperv.group(2)
