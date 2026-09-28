@@ -33,6 +33,21 @@ def meta_extract(extracted_pdf):
         else:
             code = None
 
+        # Qualifcation Extraction
+        IGCSE_pattern = r"IGCSE|General Certificate of Secondary Education"
+        O_level_pattern = r"O Level|Ordinary Level"
+        AS_level_pattern = r"Cambridge International AS Level"
+        AS_ALevel_pattern = r"AS & A Level|Advanced Subsidiary and Advanced Level|Advanced Subsidiary Level and Advanced Level|International Advanced Level"
+
+        if re.search(IGCSE_pattern,extracted_pdf):
+            metadata["qualification"] = "IGCSE"
+        elif re.search(O_level_pattern,extracted_pdf):
+            metadata["qualification"] = "O Level"
+        elif re.search(AS_level_pattern,extracted_pdf):
+            metadata["qualification"] = "AS"
+        elif re.search(AS_ALevel_pattern,extracted_pdf):
+            metadata["qualification"] = "AS & A Level"  
+
         if code is not None:
             # CODE SPLITTING AND DECLARATION OF SUBJECT CODE
             code_splitted = code.split("/")
@@ -54,8 +69,8 @@ def meta_extract(extracted_pdf):
                 metadata["session"] = "February/March"
             
             # YEAR DECLARATION
-            metadata["year"] = code_splitted[4]
-            
+            metadata["year"] = "20" + code_splitted[4]
+
         else:
             print("There was no code in this exam.")
 
