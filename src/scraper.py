@@ -70,7 +70,7 @@ def search():
         "IGCSE":igcse_dict,
         "O Level":o_level_dict,
         "AS & A Level":a_level_dict,
-        "as":as_dict
+        "AS":as_dict
     }
 
     return subname_code
