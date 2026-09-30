@@ -69,7 +69,8 @@ def search():
     subname_code = {
         "IGCSE":igcse_dict,
         "O Level":o_level_dict,
-        "AS & A Level":a_level_dict
+        "AS & A Level":a_level_dict,
+        "as":as_dict
     }
 
     return subname_code
